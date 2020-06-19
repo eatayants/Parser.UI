@@ -1,0 +1,50 @@
+﻿<Controls:MetroWindow x:Class="Parser.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:Pages="clr-namespace:Parser.Pages"
+
+    WindowStartupLocation="CenterScreen" 
+    BorderBrush="{DynamicResource AccentColorBrush}"
+    BorderThickness="1"
+    Icon="Logo.ico"
+    Title="Parser UI"
+    Height="700" MaxHeight="700"
+    Width="800" MaxWidth="800">
+
+    <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="600" MinHeight="600"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="143*" />
+            <ColumnDefinition Width="487*"/>
+            <ColumnDefinition Width="160" />
+        </Grid.ColumnDefinitions>
+
+        <TextBox Grid.Row="0" Grid.Column="0"
+                 Text="{Binding Address, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 VerticalContentAlignment="Center" IsEnabled="{Binding IsAddressEnable}"
+                 KeyDown="UrlChanged"
+                 Style="{StaticResource UrlHint}"
+                 Margin="5,5,158,5" Grid.ColumnSpan="3" />
+        <Button Grid.Row="0"
+                Click="GoClicked" Margin="7,5,86,5" Content="{Binding ElementText}" Grid.Column="2" />
+        <Button Grid.Row="0" Grid.Column="2"
+                Click="SaveClicked" Margin="79,5,5,5" Content="Сохранить" />
+        <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding IsHarvest}" Grid.ColumnSpan="3"  Margin="4,4,4,4"
+                  Foreground="SteelBlue" FontWeight="Bold" IsEnabled="{Binding IsHarvestEnable}">Сбор ссылок на ресурсы из каталога</CheckBox>
+        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
+                Text="{Binding Status}" Margin="4,4,4,4" Foreground="SteelBlue" FontWeight="Bold" />        
+        <TabControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,0">
+            <TabItem Header="Process" Controls:ControlsHelper.HeaderFontSize="15">
+                <Pages:Process DataContext="{Binding Process}" 
+                               Visibility="Visible" Margin="0,0,0,20"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Controls:MetroWindow>
